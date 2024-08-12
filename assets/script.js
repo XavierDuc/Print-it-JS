@@ -20,10 +20,29 @@ const slides = [
 
 let currentSlide = 0;
 
-const leftArrow = document.querySelector(".arrow_left");
-const rightArrow = document.querySelector(".arrow_right");
+const leftArrow = document.createElement("div");
+leftArrow.classList.add("arrow_left");
 
-function createDots() {
+const leftArrowImage = document.createElement("img");
+leftArrowImage.src = "./assets/images/arrow_left.png";
+leftArrowImage.alt = "image précédente";
+
+leftArrow.append(leftArrowImage);
+
+const rightArrow = document.createElement("div");
+rightArrow.classList.add("arrow_right");
+
+const rightArrowImage = document.createElement("img");
+rightArrowImage.src = "./assets/images/arrow_right.png";
+rightArrowImage.alt = "image suivante";
+
+rightArrow.append(rightArrowImage);
+
+const banner = document.getElementById("banner");
+banner.append(leftArrow);
+banner.append(rightArrow);
+
+const createDots = () => {
   const dotsContainer = document.querySelector(".dots");
   for (let i = 0; i < slides.length; i++) {
     const dot = document.createElement("div");
@@ -33,9 +52,9 @@ function createDots() {
     }
     dotsContainer.appendChild(dot);
   }
-}
+};
 
-function updateDots(index) {
+const updateDots = (index) => {
   const dots = document.querySelectorAll(".dot");
   dots.forEach((dot, i) => {
     if (i === index) {
@@ -44,9 +63,9 @@ function updateDots(index) {
       dot.classList.remove("dot_selected");
     }
   });
-}
+};
 
-function updateSlide(direction) {
+const updateSlide = (direction) => {
   if (direction === "right") {
     if (currentSlide === slides.length - 1) {
       currentSlide = 0; // Retour à la première image
@@ -69,19 +88,19 @@ function updateSlide(direction) {
 
   // Mise à jour des points
   updateDots(currentSlide);
-}
+};
 
-function arrowright() {
+const arrowright = () => {
   updateSlide("right");
-}
+};
 
-function arrowleft() {
+const arrowleft = () => {
   updateSlide("left");
-}
+};
 
 rightArrow.addEventListener("click", arrowright);
 leftArrow.addEventListener("click", arrowleft);
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   createDots();
 });
